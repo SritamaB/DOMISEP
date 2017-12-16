@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2017 at 12:50 PM
+-- Generation Time: Dec 16, 2017 at 02:50 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `domisep`
 --
-CREATE DATABASE IF NOT EXISTS `domisep` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `domisep`;
 
 -- --------------------------------------------------------
 
@@ -30,12 +28,37 @@ USE `domisep`;
 -- Table structure for table `home`
 --
 
-DROP TABLE IF EXISTS `home`;
 CREATE TABLE `home` (
   `HomeID` varchar(255) NOT NULL,
   `UserID` varchar(255) NOT NULL,
   `Size` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `home`
+--
+
+INSERT INTO `home` (`HomeID`, `UserID`, `Size`) VALUES
+('qwerty', 'User000', '200');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `ProductID` varchar(255) NOT NULL,
+  `Used` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`ProductID`, `Used`) VALUES
+('', 1),
+('prod01', 0);
 
 -- --------------------------------------------------------
 
@@ -43,7 +66,6 @@ CREATE TABLE `home` (
 -- Table structure for table `rooms`
 --
 
-DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE `rooms` (
   `HomeID` varchar(255) NOT NULL,
   `RoomID` varchar(255) NOT NULL,
@@ -56,7 +78,6 @@ CREATE TABLE `rooms` (
 -- Table structure for table `sensors`
 --
 
-DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE `sensors` (
   `SensorID` varchar(255) NOT NULL,
   `SensorTpye` varchar(255) NOT NULL,
@@ -71,7 +92,6 @@ CREATE TABLE `sensors` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `Userid` varchar(255) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
@@ -89,6 +109,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`Userid`, `FirstName`, `LastName`, `EmailID`, `Password`, `DOB`, `Address`, `ProductID`, `UserStatusActive`, `UserName`, `Gender`, `PhoneNumber`, `NoOfPpl`) VALUES
+('User000', 'Audrey', 'Hepburn', 'audrey.hepburn@gmail.com', 'qwerty', '1920-09-12', 'app 123', 'prod123', 1, 'audreyH', 'Female', 898999, 2),
+('user01', 'nicholas', 'cage', 'nic.cage@gmail.com', 'nic', '1980-12-12', 'beverly hills', 'prod01', 1, 'niccy', 'male', 21233, 2);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -97,6 +125,12 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `home`
   ADD PRIMARY KEY (`UserID`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`ProductID`);
 
 --
 -- Indexes for table `rooms`
@@ -109,6 +143,13 @@ ALTER TABLE `rooms`
 --
 ALTER TABLE `sensors`
   ADD PRIMARY KEY (`SensorID`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`Userid`),
+  ADD UNIQUE KEY `ProductID` (`ProductID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
