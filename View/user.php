@@ -1,10 +1,14 @@
 
 <!DOCTYPE html>
 <?php
-//i might say i am working on it but i wont so y dont you be a sweet heart and complete this
+
 include '../Controller/config.php';
-$bitch = 'SELECT * 
-		FROM user';
+ session_start();
+   $userid=$_SESSION['name'];
+//echo $userid;
+
+$bitch = "SELECT * 
+		FROM user where Userid='$userid'";
  
 		
 $ass = mysqli_query($dbcon, $bitch);
@@ -96,7 +100,7 @@ function closeNav() {
 <div class="card1">
      <center>
 <h2 style="margin-bottom: 5px">
-                 Hey you all this is:    <?php echo $uname ?>
+                 Hey you all this is:    <?php  echo $uname ?>
                       </h2>  
                     <hr>
                  </center>

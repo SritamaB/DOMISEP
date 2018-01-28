@@ -123,13 +123,7 @@ body,html{
     }
   }
    
-  @media (min-width: 1330px) {
-
-    .main{
-      width: calc(100% - 200px);
-      margin-left: 200px;
-    }
-
+  
     nav.sidebar{
       margin-left: 0px;
       float: left;
@@ -140,14 +134,7 @@ body,html{
     }
   }
 
-  nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
-    color: #CCC;
-    background-color: transparent;
-  }
-
-  nav:hover .forAnimate{
-    opacity: 1;
-  }
+  
 
 #time {
     margin-left: 950px;

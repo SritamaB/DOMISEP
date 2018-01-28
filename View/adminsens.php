@@ -1,12 +1,3 @@
-<?php
-include("../Controller/config.php");
-$sens=$_POST['newsensor'];
- 
-            $req="INSERT INTO sensorlist (sensorname) VALUES('$sens')";
-            
-            mysqli_query($dbcon,$req);
-
-?>
 
 
 
@@ -74,13 +65,13 @@ function closeNav() {
 
 
 <div class="outer-div">
-  <form method="post" action="">
+  <form method="post" action="../Controller/addsensor.php">
   <center>
       
        <div class="card">
-           <h2>Add new sensors</h2>
+           <h2>Add new Products</h2>
       <hr>
-        <center>Number of Sensors: <input type="text" name="NumberOf" placeholder="Enter or choose number of rooms" id="NumberOf"></center><br>
+        <center>Number of Products: <input type="text" name="NumberOf" placeholder="Enter or choose number of rooms" id="NumberOf"></center><br>
     <table id="studenttable">
 <a href ="#" id="demo" style="margin-left: 50px;" >Add new</a>
 	
@@ -88,6 +79,7 @@ function closeNav() {
 	</table>
 	 <hr>
        
+
 
        
       <script>
@@ -115,7 +107,7 @@ function closeNav() {
 				    var theSelect = document.createElement('input');
                     theSelect.type = 'text';
                     theSelect.required = "true";
-				     theSelect.placeholder='type a new sensor room';
+				     theSelect.placeholder='type your new product name here...';
 				    theSelect.name = "newsensor"+count;  // setting unique NAME
 				    theSelect.id = "newsensor"+count;    // setting unique ID
 				     

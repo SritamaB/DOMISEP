@@ -83,7 +83,7 @@ function closeNav() {
           
           
           <div><font size="4" color="white">Temperature</font>(in celcius)</div>
-          
+          <div><font size="2"  color="black">click the down link to see the readings</font></div>
            
                                 </div>
                             </div>
@@ -108,6 +108,7 @@ function closeNav() {
         <div><img class="temp" src="../View/dashpic/img4.png"></div>
         <div class="huge" id="price2"><font size="4" color="white"></font></div>
         <div style="margin-top:4px;"><font size="4" color="white">Humidity</font></div><br>
+         <div><font size="2"  color="black">click the down link to see the readings</font></div>
          
                                 </div>
                             </div>
@@ -167,7 +168,7 @@ function closeNav() {
      <div class="huge" id="price3"></div>
      
      <div><font size="4" color="white">Motion Activated</font></div>
-    
+     <div><font size="2"  color="black">click the down link to see the readings</font></div>
      
                                 </div>
                             </div>

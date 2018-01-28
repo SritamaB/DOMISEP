@@ -55,20 +55,26 @@ function closeNav() {
 } 
     </script>
     <?php
-    include '../Controller/config.php';
-      $userId= session_name();
-      $query_FName= "SELECT FirstName FROM user where Userid='$userId'";
-      $query_LName= "SELECT LastName FROM user where Userid='$userId'";
-      $query_Pwd= "SELECT Password FROM user where Userid='$userId'";
-      $query_FNameExecute= mysqli_query($dbcon, $query_FName);
-      $query_LNameExecute= mysqli_query($dbcon, $query_LName);
-      $query_PwdExecute= mysqli_query($dbcon, $query_Pwd);
+      
+include '../Controller/config.php';
+ session_start();
+  $userid=$_SESSION['name'];
+ $sql = "SELECT * FROM user WHERE userid='$userid' ";
+    $ass = mysqli_query($dbcon, $sql);
 
-
-
-
+while($row = mysqli_fetch_array($ass)){
+    $uname = $row['username'];
+    $fname = $row['FirstName'];
+    $lname = $row['LastName'];
+    $pass = $row['Password'];
+    $email = $row['EmailID'];
+        $dob = $row['DOB'];
+     $gender = $row['Gender'];
+    $address = $row['Address'];
+    $prod = $row['ProductID'];
+    
+    }
     ?>
-         
 <body>
     <br>
 <div class="container">
@@ -79,26 +85,24 @@ function closeNav() {
       <div class="col-md-9 personal-info">
         
         
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" action="../Controller/edit_yo.php" role="form" method="POST">
           <div class="row" style="margin-left:190px;">
     <div class="col">
        
-      username: <input type="text" name="username" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-         First Name: <input type="text" name="FirstName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-         last Name: <input type="text" name="LastName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-       Password: <input type="password" name="Password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-        Confirm password: <input type="password" name="cpass" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+      username: <input type="text" name="username" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="<?php echo $uname;?>" required>
+         First Name: <input type="text" name="FirstName" id="FirstName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="<?php echo $fname;?>" required>
+         last Name: <input type="text" name="LastName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="<?php echo $lname;?>" required>
+       Password: <input type="password" name="Password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"value="<?php echo $pass;?>" required>
+        Conform password: <input type="password" name="cpass" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"  required>
         
     </div>
       <div class="vl"></div>
     <div class="col">
-      Birthday: <input type="Date" name="DOB" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-         Gender: <br> <label class="radio-inline"><input  type="radio" value="male" name="gender" required>&nbsp;Male</label>&nbsp;
-	<label class="radio-inline"><input type="radio" name="gender" value="female" required>&nbsp;Female</label>&nbsp;
-	<label class="radio-inline"><input type="radio" name="gender" value="other" required>&nbsp;Other</label>&nbsp;<br> 
-         Email: <input type="email" name="EmailID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-        Address:<input type="text" name="Address" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
-        Product.id:<input type="text" name="ProductID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+      Birthday: <input type="Date" name="DOB" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="<?php echo $dob ;?>" readonly>
+        
+         Email: <input type="email" name="EmailID" value="<?php echo $email;?>" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
+        Address:<input type="text" name="Address" value="<?php echo $address;?>" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
+        Product.id:<input type="text" value="<?php echo $prod;?>" name="ProductID" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" readonly>
     </div>
   </div>
             
@@ -113,7 +117,7 @@ function closeNav() {
             <div class="col-md-8" >
                 <a href="../View/user.php" class="btn btn-outline-danger my-2 my-sm-0" type="submit">cancel</a>
               
-                <a  href="" class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 16px">Save changes</a>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 16px">Save changes</button>
     
             </div>
           </div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.6
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 16, 2017 at 02:50 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 5.6.32
+-- Host: localhost
+-- Generation Time: Jan 28, 2018 at 09:03 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,7 +39,7 @@ CREATE TABLE `home` (
 --
 
 INSERT INTO `home` (`HomeID`, `UserID`, `Size`) VALUES
-('qwerty', 'User000', '200');
+('', 'user0', '');
 
 -- --------------------------------------------------------
 
@@ -57,8 +57,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`ProductID`, `Used`) VALUES
-('', 1),
-('prod01', 0);
+('', 0),
+('prod01', 1),
+('prod02', 0),
+('prod03', 0),
+('prod04', 0),
+('prod101', 0),
+('prod_10', 0),
+('prod_100', 0);
 
 -- --------------------------------------------------------
 
@@ -72,6 +78,14 @@ CREATE TABLE `rooms` (
   `RoomType` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`HomeID`, `RoomID`, `RoomType`) VALUES
+('', 'room0', 'living'),
+('', 'room1', 'bathroom2');
+
 -- --------------------------------------------------------
 
 --
@@ -81,10 +95,44 @@ CREATE TABLE `rooms` (
 CREATE TABLE `sensors` (
   `SensorID` varchar(255) NOT NULL,
   `SensorTpye` varchar(255) NOT NULL,
+  `RoomID` varchar(200) NOT NULL,
   `Roomtype` varchar(255) NOT NULL,
   `SensorValue` double NOT NULL,
   `SensorAlertStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sensors`
+--
+
+INSERT INTO `sensors` (`SensorID`, `SensorTpye`, `RoomID`, `Roomtype`, `SensorValue`, `SensorAlertStatus`) VALUES
+('room0Sensor1', 'Temperature', 'room0', 'living', 34, '0'),
+('room0Sensor2', 'Temperature', 'room0', 'livin2', 184, '1'),
+('room0Sensor3', 'Humidity', 'room0', 'livin2', 12, '0'),
+('room1Sensor1', 'Humidity', 'room1', 'bathroom3', 194, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SesnsorReadings`
+--
+
+CREATE TABLE `SesnsorReadings` (
+  `date` date NOT NULL,
+  `SensorID` varchar(250) NOT NULL,
+  `SensorValue` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `SesnsorReadings`
+--
+
+INSERT INTO `SesnsorReadings` (`date`, `SensorID`, `SensorValue`) VALUES
+('2018-01-15', 'room0Sensor1', 20),
+('2018-01-08', 'room0Sensor1', 1),
+('2018-01-01', 'room0Sensor1', 22),
+('2018-01-01', 'room0Sensor2', 2),
+('2018-01-09', 'room0Sensor3', 22);
 
 -- --------------------------------------------------------
 
@@ -94,6 +142,7 @@ CREATE TABLE `sensors` (
 
 CREATE TABLE `user` (
   `Userid` varchar(255) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
   `LastName` varchar(255) NOT NULL,
   `EmailID` varchar(255) NOT NULL,
@@ -102,19 +151,16 @@ CREATE TABLE `user` (
   `Address` varchar(255) NOT NULL,
   `ProductID` varchar(255) NOT NULL,
   `UserStatusActive` tinyint(1) NOT NULL DEFAULT '1',
-  `UserName` varchar(255) NOT NULL,
-  `Gender` varchar(255) NOT NULL,
-  `PhoneNumber` int(11) NOT NULL,
-  `NoOfPpl` int(11) NOT NULL
+  `Gender` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Userid`, `FirstName`, `LastName`, `EmailID`, `Password`, `DOB`, `Address`, `ProductID`, `UserStatusActive`, `UserName`, `Gender`, `PhoneNumber`, `NoOfPpl`) VALUES
-('User000', 'Audrey', 'Hepburn', 'audrey.hepburn@gmail.com', 'qwerty', '1920-09-12', 'app 123', 'prod123', 1, 'audreyH', 'Female', 898999, 2),
-('user01', 'nicholas', 'cage', 'nic.cage@gmail.com', 'nic', '1980-12-12', 'beverly hills', 'prod01', 1, 'niccy', 'male', 21233, 2);
+INSERT INTO `user` (`Userid`, `username`, `FirstName`, `LastName`, `EmailID`, `Password`, `DOB`, `Address`, `ProductID`, `UserStatusActive`, `Gender`) VALUES
+('admin', 'admin', 'admin', 'admin', 'admin@gmail.com', 'DOy1Fv.//9yys', '2018-01-09', 'sssss', '', 1, 'other'),
+('user0', 'User_old', 'Katherine', 'Hepburn', 'audrey_hepburn@gmail.com', 'DOy1Fv.//9yys', '2018-01-16', '123 rue des pinsons', 'prod01', 1, 'female');
 
 --
 -- Indexes for dumped tables
@@ -142,7 +188,14 @@ ALTER TABLE `rooms`
 -- Indexes for table `sensors`
 --
 ALTER TABLE `sensors`
-  ADD PRIMARY KEY (`SensorID`);
+  ADD PRIMARY KEY (`SensorID`),
+  ADD UNIQUE KEY `SensorID` (`SensorID`);
+
+--
+-- Indexes for table `SesnsorReadings`
+--
+ALTER TABLE `SesnsorReadings`
+  ADD KEY `SensorID` (`SensorID`);
 
 --
 -- Indexes for table `user`
@@ -150,6 +203,22 @@ ALTER TABLE `sensors`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Userid`),
   ADD UNIQUE KEY `ProductID` (`ProductID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `home`
+--
+ALTER TABLE `home`
+  ADD CONSTRAINT `home_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`Userid`);
+
+--
+-- Constraints for table `SesnsorReadings`
+--
+ALTER TABLE `SesnsorReadings`
+  ADD CONSTRAINT `sesnsorreadings_ibfk_1` FOREIGN KEY (`SensorID`) REFERENCES `sensors` (`SensorID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

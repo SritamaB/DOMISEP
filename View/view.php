@@ -7,18 +7,30 @@
 
 //$query = "SELECT * FROM users WHERE id = $sid";
 
-//dose this mean 
-//i might say i am working on it but i wont so y dont you be a sweet heart and complete this
 include '../Controller/config.php';
-$bitch = 'SELECT * 
-		FROM sensors';
+ session_start();
+       $userid=$_SESSION['name'];
+$queryRoom= "SELECT RoomID FROM rooms WHERE HomeID=(SELECT HomeID FROM home WHERE Userid='$userid') ";
+$queryRoomExec=mysqli_query($dbcon,$queryRoom);
+//$queryRoomResult=mysqli_result($queryRoomExec);
+//$queryRoomearray=;
+//foreach($queryRoomearray as $value)
+  //  echo "room ".$value."<br>";
+//$roomID= $queryRoomearray[0];
+//print_r($queryRoomearray);
+//mysqli_free_resultset($queryRoomExec);
+$array_rooms=array();
+$array_rooms_split=array();
+
+//echo $array_rooms[1];
+
+//print_r($array_rooms_split);
+
+
  
 		
-$ass = mysqli_query($dbcon, $bitch);
 
-if (!$ass) {
-	die ('SQL Error: ' . mysqli_error($dbcon));
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -92,19 +104,31 @@ function closeNav() {
   <tbody>
    <?php
 		
-		while ($row = mysqli_fetch_array($ass))
+      
+      while(list($data)= mysqli_fetch_array($queryRoomExec,MYSQLI_NUM))
+{
+    //echo $data;//array_rooms[]=$data;
+    //print_r($data);
+    $bitch = "SELECT * FROM sensors where RoomID='$data'";
+    $ass = mysqli_query($dbcon, $bitch);
+          while ($row = mysqli_fetch_array($ass))
 		{
 			
 			echo '<tr>
 					
-					<td>'.$row['SensorTpye'].'</td>
 					<td>'.$row['Roomtype'].'</td>
+					<td>'.$row['SensorTpye'].'</td>
                     <td>'.$row['SensorValue'].'</td>
 					
 				</tr>';
 			
 		
-		}?>
+		}
+    
+    
+}
+
+		?>
       
   </tbody>
 </table>

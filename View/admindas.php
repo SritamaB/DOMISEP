@@ -5,9 +5,11 @@
 //i might say i am working on it but i wont so y dont you be a sweet heart and complete this
 include("../Controller/config.php");
 $bitch = "SELECT * 
-		FROM user where UserStatusActive='1'";
+		FROM user where UserStatusActive='1' and Userid<>'admin'";
  
-		
+$rowcount= " UPDATE user SET UserStatusActive='1';"; 
+    
+    $rowcount= mysqli_query($dbcon,$rowcount);
 $ass = mysqli_query($dbcon, $bitch);
 
 if (!$ass) {
@@ -104,8 +106,7 @@ function closeNav() {
         <th scope="col">lastname</th>-->
       <th scope="col">Email</th>
           <th scope="col">Gender</th>
-     
-      <th scope="col">Control</th>
+    
     </tr>
   </thead>
   <tbody>
@@ -128,7 +129,7 @@ function closeNav() {
 					
 				
 
-        <td> <a class="btn btn-outline-warning my-2 my-sm-0" onclick="deleteRow(this)" type="submit">Delete</a></td>
+        <td> </td>
         
   
     	</tr>';
@@ -138,16 +139,17 @@ function closeNav() {
       
   </tbody>
 </table>  
-           <script>
-                function deleteRow(btn) {
-                    
-                    
-  var row = btn.parentNode.parentNode;
-  row.parentNode.removeChild(row);
-                    
-                    swal("Are you sure?", {
-  dangerMode: true,
-  buttons: true,
+           <script type="text/javascript">
+                $(document).ready(function () 
+	{
+		swal({
+    title: "CRAP!",
+    text: "OK So Something Went Wrong!",
+    icon: "error"
+	}).then(function() {
+    window.location = "../Controller/delete.php";
+});
+  
 });
 }
                 
